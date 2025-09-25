@@ -15,6 +15,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 import xyz.destiall.addons.Addons;
+import xyz.destiall.addons.managers.CitizensManager;
 import xyz.destiall.addons.utils.Effects;
 import xyz.destiall.addons.utils.Scheduler;
 import xyz.destiall.addons.valorant.common.Flasher;
@@ -35,12 +36,12 @@ public class Yoru extends Agent implements Flasher {
     }
 
     @Override
-    public void flash(Player self, Location source, boolean leftClick) {
+    public void flash(Location source, boolean leftClick) {
         Snowball snowball = self.launchProjectile(Snowball.class);
         snowball.setShooter(self);
         snowball.setItem(new ItemStack(Material.HEART_OF_THE_SEA));
         snowball.getPersistentDataContainer().set(yoruFlashed, PersistentDataType.STRING, "yoru");
-        snowball.setBounce(true);
+        //snowball.setBounce(true);
         snowball.setGravity(true);
         Vector forward = self.getLocation().getDirection();
         snowball.setVelocity(forward);
@@ -122,5 +123,10 @@ public class Yoru extends Agent implements Flasher {
     @Override
     public double flashDuration() {
         return 1f;
+    }
+
+    public void sendClone(Location source, Vector direction) {
+        if (Addons.CZ)
+            CitizensManager.sendYoruClone(this, source, direction);
     }
 }

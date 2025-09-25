@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface Waller {
-    void wall(Player source, Location origin);
+    void wall(Location origin);
 
     List<Material> wallMaterials();
 

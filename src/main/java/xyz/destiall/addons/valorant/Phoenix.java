@@ -39,7 +39,7 @@ public class Phoenix extends Agent implements Flasher, Waller {
     }
 
     @Override
-    public void flash(Player self, Location source, boolean leftClick) {
+    public void flash(Location source, boolean leftClick) {
         Snowball snowball = self.launchProjectile(Snowball.class);
         snowball.setShooter(self);
         snowball.setItem(new ItemStack(Material.MAGMA_CREAM));
@@ -67,7 +67,6 @@ public class Phoenix extends Agent implements Flasher, Waller {
                     tasks.removeIf(t -> t.getExternalId() == this.getExternalId());
                     //Addons.INSTANCE.getAgentManager().unsetAgent(self);
                     currentSnowball.remove();
-                    Effects.spawnCrit(currentSnowball.getLocation());
                     flashes.remove(this.getExternalId());
                     return;
                 }
@@ -134,9 +133,9 @@ public class Phoenix extends Agent implements Flasher, Waller {
     }
 
     @Override
-    public void wall(Player source, Location origin) {
-        prevWallDirection = wallDirection(source);
-        wallUp(source, origin.clone());
+    public void wall(Location origin) {
+        prevWallDirection = wallDirection(self);
+        wallUp(self, origin.clone());
     }
 
     @Override

@@ -20,5 +20,9 @@ public abstract class Agent implements Listener {
         return tasks;
     }
 
+    public Player getSelf() {
+        return self;
+    }
+
     public void unset() {}
 }

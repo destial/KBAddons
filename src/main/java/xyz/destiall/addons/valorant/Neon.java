@@ -18,13 +18,13 @@ public class Neon extends Agent implements Waller {
     }
 
     @Override
-    public void wall(Player source, Location origin) {
-        wallDirection = source.getLocation().getDirection().setY(0);
+    public void wall(Location origin) {
+        wallDirection = self.getLocation().getDirection().setY(0);
         Vector forward = wallDirection.clone().normalize();
         Vector up = new Vector(0.0, 1.0, 0.0);
         Vector right = forward.crossProduct(up).multiply(2);
-        wallUp(source, origin.clone().add(right));
-        wallUp(source, origin.clone().subtract(right));
+        wallUp(self, origin.clone().add(right));
+        wallUp(self, origin.clone().subtract(right));
     }
 
     @Override

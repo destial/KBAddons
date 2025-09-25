@@ -44,6 +44,7 @@ public class FunFactory implements Listener {
         newItem("YORUFLASH", Material.HEART_OF_THE_SEA, "&bYoru Flash", "&fLeft click to throw");
         newItem("SOVASCAN", Material.BOW, "&3Sova Bow (0)", "&fLeft click to toggle bounces");
         newItem("RECONDART", Material.ARROW, "&3Recon Dart", "Use this arrow to scan surroundings");
+        newItem("CLONE", Material.ECHO_SHARD, "&1Yoru Clone", "Send a clone of yourself walking");
         // newItem("GRAPPLE", Material.FISHING_ROD, "&7&lGrappling Hook");
         Bukkit.getPluginManager().registerEvents(new FunFactory(), Addons.INSTANCE);
     }

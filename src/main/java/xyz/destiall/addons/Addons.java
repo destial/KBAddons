@@ -16,6 +16,7 @@ import xyz.destiall.addons.listeners.EggListener;
 import xyz.destiall.addons.listeners.FlagListener;
 import xyz.destiall.addons.listeners.FunListener;
 import xyz.destiall.addons.managers.BlockManager;
+import xyz.destiall.addons.managers.CitizensManager;
 import xyz.destiall.addons.managers.CombatLogManager;
 import xyz.destiall.addons.managers.FlagManager;
 import xyz.destiall.addons.managers.HologramManager;
@@ -32,6 +33,7 @@ public final class Addons extends JavaPlugin {
     public static boolean SP;
     public static boolean CL;
     public static boolean HL;
+    public static boolean CZ;
 
     public static Scheduler scheduler;
 
@@ -58,6 +60,7 @@ public final class Addons extends JavaPlugin {
         SP = pm.getPlugin("StrikePractice") != null;
         CL = pm.getPlugin("CombatLogger") != null;
         HL = pm.getPlugin("HolographicDisplays") != null;
+        CZ = pm.getPlugin("Citizens") != null;
         FunFactory.init();
         BlockManager.init();
         agentManager = new AgentManager(this);
@@ -72,6 +75,7 @@ public final class Addons extends JavaPlugin {
         if (WG) registerEvents(new FlagListener());
         if (CL) CombatLogManager.init();
         if (HL) HologramManager.init();
+        if (CZ) CitizensManager.init();
 
         getServer().getPluginCommand("addons").setExecutor(new AddonCommand());
     }
@@ -89,6 +93,7 @@ public final class Addons extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (CZ) CitizensManager.destroy();
         BlockManager.disable();
         HandlerList.unregisterAll(this);
         scheduler.cancelTasks();

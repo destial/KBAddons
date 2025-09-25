@@ -272,20 +272,25 @@ public class FunListener implements Listener {
                 }
             } else if (is(item, "NEONWALL")) {
                 Neon neon = Addons.INSTANCE.getAgentManager().setAgent(player, Neon.class);
-                neon.wall(player, player.getLocation());
                 item.setAmount(item.getAmount() - 1);
+                neon.wall(player.getLocation());
             } else if (is(item, "PHOENIXWALL")) {
                 Phoenix phoenix = Addons.INSTANCE.getAgentManager().setAgent(player, Phoenix.class);
-                phoenix.wall(player, player.getLocation());
                 item.setAmount(item.getAmount() - 1);
+                phoenix.wall(player.getLocation());
             } else if (is(item, "PHOENIXFLASH")) {
                 Phoenix phoenix = Addons.INSTANCE.getAgentManager().setAgent(player, Phoenix.class);
-                phoenix.flash(player, player.getLocation(), false);
                 item.setAmount(item.getAmount() - 1);
+                phoenix.flash(player.getLocation(), false);
             } else if (is(item, "JETTBLADES")) {
                 Jett jett = Addons.INSTANCE.getAgentManager().setAgent(player, Jett.class);
-                jett.activateBlades();
                 item.setAmount(item.getAmount() - 1);
+                jett.activateBlades();
+            } else if (is(item, "CLONE") && e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+                Yoru yoru = Addons.INSTANCE.getAgentManager().setAgent(player, Yoru.class);
+                Location block = e.getClickedBlock().getLocation().add(0, 1, 0);
+                item.setAmount(item.getAmount() - 1);
+                yoru.sendClone(block, player.getLocation().getDirection());
             }
             return;
         }
@@ -309,12 +314,16 @@ public class FunListener implements Listener {
                 e.getItem().setItemMeta(meta);
             } else if (is(item, "PHOENIXFLASH")) {
                 Phoenix phoenix = Addons.INSTANCE.getAgentManager().setAgent(player, Phoenix.class);
-                phoenix.flash(player, player.getLocation(), true);
                 item.setAmount(item.getAmount() - 1);
+                phoenix.flash(player.getLocation(), true);
             } else if (is(item, "YORUFLASH")) {
                 Yoru yoru = Addons.INSTANCE.getAgentManager().setAgent(player, Yoru.class);
-                yoru.flash(player, player.getLocation(), true);
                 item.setAmount(item.getAmount() - 1);
+                yoru.flash(player.getLocation(), true);
+            } else if (is(item, "CLONE")) {
+                Yoru yoru = Addons.INSTANCE.getAgentManager().setAgent(player, Yoru.class);
+                item.setAmount(item.getAmount() - 1);
+                yoru.sendClone(player.getLocation(), player.getLocation().getDirection());
             }
         }
     }
