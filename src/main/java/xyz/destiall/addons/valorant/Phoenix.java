@@ -15,7 +15,6 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.projectiles.ProjectileSource;
 import org.bukkit.util.Vector;
 import xyz.destiall.addons.Addons;
-import xyz.destiall.addons.utils.Effects;
 import xyz.destiall.addons.utils.Scheduler;
 import xyz.destiall.addons.valorant.common.Flasher;
 import xyz.destiall.addons.valorant.common.Waller;
@@ -65,7 +64,6 @@ public class Phoenix extends Agent implements Flasher, Waller {
                     this.cancel();
                     flashOut(self, currentSnowball.getLocation());
                     tasks.removeIf(t -> t.getExternalId() == this.getExternalId());
-                    //Addons.INSTANCE.getAgentManager().unsetAgent(self);
                     currentSnowball.remove();
                     flashes.remove(this.getExternalId());
                     return;
@@ -113,7 +111,6 @@ public class Phoenix extends Agent implements Flasher, Waller {
             snowball.setItem(new ItemStack(Material.MAGMA_CREAM));
             snowball.setShooter(self);
             snowball.getPersistentDataContainer().set(phoenixFlashed, PersistentDataType.STRING, "phoenix");
-            snowball.setBounce(true);
             snowball.setGravity(false);
             snowball.setVelocity(newDirection.normalize().multiply(magnitude));
             int taskId = flashes.entrySet().stream().filter(entry -> entry.getValue() == proj).findFirst().orElse(null).getKey();

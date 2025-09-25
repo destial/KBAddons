@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.BoundingBox;
 import org.bukkit.util.RayTraceResult;
 import org.bukkit.util.Vector;
 import xyz.destiall.addons.Addons;
@@ -100,7 +101,14 @@ public class Jett extends Agent implements Itemmer {
 
         Vector dir = self.getLocation().getDirection();
         Location start = self.getEyeLocation().add(dir.clone().multiply(0.5f));
-        RayTraceResult result = self.getWorld().rayTrace(start, dir, maxDistance, FluidCollisionMode.NEVER, true, kunaiCollision, en -> en instanceof LivingEntity && !en.getUniqueId().equals(self.getUniqueId()));
+        RayTraceResult result = self.getWorld().rayTrace(
+                start,
+                dir,
+                maxDistance,
+                FluidCollisionMode.NEVER,
+                true,
+                kunaiCollision,
+                en -> en instanceof LivingEntity && !en.getUniqueId().equals(self.getUniqueId()));
         Location end;
         if (result == null) {
             end = self.getEyeLocation().add(dir.clone().multiply(maxDistance));
@@ -121,7 +129,11 @@ public class Jett extends Agent implements Itemmer {
 
         if (result != null && result.getHitEntity() != null) {
             LivingEntity entity = (LivingEntity) result.getHitEntity();
-            entity.damage(kunaiDamage, self);
+            if (end.getY() >= entity.getEyeLocation().getY()) {
+                entity.damage(kunaiDamage * 3.d, self);
+            } else {
+                entity.damage(kunaiDamage, self);
+            }
 
             if (entity.getHealth() == 0) {
                 unset();
